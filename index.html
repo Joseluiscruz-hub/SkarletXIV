@@ -2,289 +2,305 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- --- IMPORTANTE PARA WHATSAPP --- -->
+    <!-- Cuando compartas el link, esto es lo que se verá -->
+    <meta property="og:title" content="XV Años de Skarlet ✨">
+    <meta property="og:description" content="Te invito a celebrar conmigo este gran día. Sábado 23 de Noviembre.">
+    <!-- Cambia esta URL por una foto real tuya subida a imgur o github para que salga en WhatsApp -->
+    <meta property="og:image" content="https://images.unsplash.com/photo-1464802686167-b939a6910659?auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:url" content="https://tusitio.com">
+    <meta property="og:type" content="website">
+
     <title>XV Años - Skarlet</title>
+    
+    <!-- Icono de la pestaña -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Tone.js para Música -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.min.js"></script>
-    <!-- Iconos Lucide -->
+    
+    <!-- Librerías: Tone.js (Música) y Lucide (Iconos) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Google Fonts -->
+    
+    <!-- Fuentes Premium -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Pinyon+Script&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-        body { font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+        /* --- Estilos Personalizados --- */
+        :root {
+            --primary-pink: #F472B6;
+            --deep-purple: #581C87;
+        }
+        
+        body { font-family: 'Montserrat', sans-serif; overflow-x: hidden; background-color: #0F172A; }
         h1, h2, h3 { font-family: 'Cinzel', serif; }
-        .script-font { font-family: 'Great Vibes', cursive; }
+        .script-font { font-family: 'Pinyon Script', cursive; } /* Fuente más elegante que Great Vibes */
 
-        .stars, .twinkling {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            width: 100%; height: 100%;
-            display: block;
-        }
-        .stars {
-            background: #000 url('http://www.script-tutorials.com/demos/360/images/stars.png') repeat top center;
+        /* --- Fondo Animado Optimizado --- */
+        .stars-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0;
+            pointer-events: none;
+            background: #000 url('http://www.script-tutorials.com/demos/360/images/stars.png') repeat top center;
         }
-        .twinkling {
-            background: transparent url('http://www.script-tutorials.com/demos/360/images/twinkling.png') repeat top center;
+        .twinkle-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: 1;
+            pointer-events: none;
+            background: transparent url('http://www.script-tutorials.com/demos/360/images/twinkling.png') repeat top center;
             animation: move-twink 200s linear infinite;
+            opacity: 0.6;
         }
+        
+        /* ANIMACIÓN DE RESPIRACIÓN (Breathe) */
+        @keyframes breathe {
+            0%, 100% { opacity: 0.9; } /* Brillo alto */
+            50% { opacity: 0.4; }      /* Brillo bajo (respiración) */
+        }
+
+        .nebula-gradient {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 50% 120%, #4c1d95 0%, #0f172a 60%);
+            z-index: 2;
+            /* Aplicamos la animación de respiración aquí */
+            animation: breathe 8s ease-in-out infinite;
+        }
+        
         @keyframes move-twink {
             from {background-position:0 0;}
             to {background-position:-10000px 5000px;}
         }
 
+        /* --- Glassmorphism Premium --- */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(17, 24, 39, 0.6); /* Más oscuro para mejor contraste */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
         }
 
-        .fade-in-up {
-            animation: fadeInUp 1.2s ease-out forwards;
+        /* --- Animaciones --- */
+        .reveal-on-scroll {
             opacity: 0;
             transform: translateY(30px);
+            transition: all 1s ease-out;
         }
-        .delay-100 { animation-delay: 0.2s; }
-        .delay-200 { animation-delay: 0.4s; }
-        .delay-300 { animation-delay: 0.6s; }
-        .delay-500 { animation-delay: 1s; }
-
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .music-btn-pulse {
-            animation: pulse-gold 2s infinite;
+        /* Botón Música */
+        .music-pulse {
+            box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7);
+            animation: pulse-pink 2s infinite;
         }
-        @keyframes pulse-gold {
-            0% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(234, 179, 8, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
+        @keyframes pulse-pink {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(236, 72, 153, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); }
         }
     </style>
 </head>
-<body class="bg-slate-900 text-gray-100 relative selection:bg-pink-500 selection:text-white">
+<body class="text-gray-100 antialiased">
 
-    <!-- Fondos -->
-    <div class="fixed inset-0 w-full h-full overflow-hidden z-0">
-        <div class="stars"></div>
-        <div class="twinkling"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-purple-900/40 to-slate-900/90 z-10"></div>
-    </div>
+    <!-- Capas de Fondo -->
+    <div class="stars-container"></div>
+    <div class="twinkle-overlay"></div>
+    <div class="nebula-gradient"></div>
 
-    <!-- Botón de Música Flotante -->
-    <button id="musicButton" class="fixed top-4 right-4 z-50 p-3 bg-white/10 backdrop-blur-md rounded-full border border-yellow-200/30 text-yellow-100 hover:bg-white/20 transition-all music-btn-pulse">
-        <i data-lucide="music" id="icon-play"></i>
-        <i data-lucide="pause" id="icon-pause" class="hidden"></i>
+    <!-- Botón Música Flotante -->
+    <button id="musicButton" class="fixed top-5 right-5 z-50 p-3 bg-pink-600/80 backdrop-blur-md rounded-full text-white hover:bg-pink-500 transition-all music-pulse shadow-lg border border-pink-400/30">
+        <i data-lucide="music" id="icon-play" class="w-6 h-6"></i>
+        <i data-lucide="pause" id="icon-pause" class="w-6 h-6 hidden"></i>
     </button>
 
-    <!-- Contenido Principal -->
-    <main class="relative z-20 w-full max-w-3xl mx-auto px-4 py-12 flex flex-col gap-8">
+    <!-- CONTENIDO PRINCIPAL (z-index alto para estar sobre el fondo) -->
+    <main class="relative z-10 w-full max-w-3xl mx-auto px-4 py-8 flex flex-col gap-12 pb-20">
 
-        <!-- 1. Portada -->
-        <section class="glass-panel rounded-3xl p-8 md:p-12 text-center fade-in-up">
-            <p class="text-sm uppercase tracking-[0.3em] text-gray-300 mb-4">Estás invitado a los XV de</p>
+        <!-- 1. PORTADA HERO -->
+        <section class="glass-panel rounded-[2rem] p-10 text-center mt-4 border-t border-pink-500/20 reveal-on-scroll reveal-visible">
+            <div class="mb-6">
+                <p class="text-xs md:text-sm uppercase tracking-[0.4em] text-pink-200/80">Mis Quince Años</p>
+            </div>
             
-            <h1 class="script-font text-7xl md:text-9xl text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-pink-100 to-purple-200 drop-shadow-[0_0_15px_rgba(236,72,153,0.5)] mb-2">
+            <!-- Nombre Gigante -->
+            <h1 class="script-font text-7xl md:text-9xl text-transparent bg-clip-text bg-gradient-to-r from-white via-pink-100 to-pink-200 drop-shadow-[0_0_25px_rgba(236,72,153,0.6)] leading-tight mb-4 py-2">
                 Skarlet
             </h1>
             
-            <div class="flex items-center justify-center gap-4 text-yellow-100/80 my-6">
-                <span class="h-px w-12 bg-yellow-100/50"></span>
-                <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                <span class="h-px w-12 bg-yellow-100/50"></span>
+            <!-- Frase -->
+            <div class="relative py-6 px-4">
+                <span class="absolute top-0 left-1/2 -translate-x-1/2 text-4xl text-pink-500/20">❝</span>
+                <p class="text-lg md:text-xl font-light italic text-gray-200 relative z-10">
+                    Hay momentos en la vida que son especiales por sí solos, compartirlos con las personas que más quieres los convierte en inolvidables.
+                </p>
             </div>
 
-            <p class="text-lg font-light italic text-gray-200 mb-8">
-                "Como una estrella en el cielo, hoy comienzo a brillar con mi propia luz."
-            </p>
-
-            <!-- Fecha Grande -->
-            <div class="flex flex-col items-center justify-center border-y border-white/10 py-6 mx-auto max-w-xs">
-                <span class="text-2xl tracking-widest uppercase">Sábado</span>
-                <span class="text-6xl font-bold text-pink-300 my-2">23</span>
-                <span class="text-2xl tracking-widest uppercase">Noviembre</span>
-                <span class="text-sm mt-2 text-gray-400">2025 • 20:00 HRS</span>
+            <!-- Fecha Destacada -->
+            <div class="inline-block border-y border-pink-500/30 py-4 px-8 mt-4 bg-white/5 rounded-lg">
+                <span class="block text-3xl md:text-4xl font-bold text-white tracking-widest">23 . 11 . 25</span>
+                <span class="block text-sm uppercase text-pink-300 mt-1 tracking-[0.2em]">Sábado • 8:00 PM</span>
             </div>
         </section>
 
-        <!-- 2. Cuenta Regresiva -->
-        <section class="fade-in-up delay-100">
-            <div class="grid grid-cols-4 gap-2 md:gap-4 text-center max-w-lg mx-auto">
-                <div class="glass-panel p-3 rounded-xl">
-                    <span id="days" class="block text-3xl font-bold text-pink-200">00</span>
-                    <span class="text-xs uppercase tracking-wider">Días</span>
+        <!-- 2. CUENTA REGRESIVA -->
+        <section class="reveal-on-scroll">
+            <div class="grid grid-cols-4 gap-3 md:gap-6 text-center max-w-lg mx-auto">
+                <div class="glass-panel p-4 rounded-2xl border-pink-500/20">
+                    <span id="days" class="block text-2xl md:text-4xl font-bold text-white">00</span>
+                    <span class="text-[10px] md:text-xs uppercase tracking-widest text-gray-400">Días</span>
                 </div>
-                <div class="glass-panel p-3 rounded-xl">
-                    <span id="hours" class="block text-3xl font-bold text-pink-200">00</span>
-                    <span class="text-xs uppercase tracking-wider">Hrs</span>
+                <div class="glass-panel p-4 rounded-2xl border-pink-500/20">
+                    <span id="hours" class="block text-2xl md:text-4xl font-bold text-white">00</span>
+                    <span class="text-[10px] md:text-xs uppercase tracking-widest text-gray-400">Hrs</span>
                 </div>
-                <div class="glass-panel p-3 rounded-xl">
-                    <span id="minutes" class="block text-3xl font-bold text-pink-200">00</span>
-                    <span class="text-xs uppercase tracking-wider">Min</span>
+                <div class="glass-panel p-4 rounded-2xl border-pink-500/20">
+                    <span id="minutes" class="block text-2xl md:text-4xl font-bold text-white">00</span>
+                    <span class="text-[10px] md:text-xs uppercase tracking-widest text-gray-400">Min</span>
                 </div>
-                <div class="glass-panel p-3 rounded-xl">
-                    <span id="seconds" class="block text-3xl font-bold text-pink-200">00</span>
-                    <span class="text-xs uppercase tracking-wider">Seg</span>
+                <div class="glass-panel p-4 rounded-2xl border-pink-500/20">
+                    <span id="seconds" class="block text-2xl md:text-4xl font-bold text-white">00</span>
+                    <span class="text-[10px] md:text-xs uppercase tracking-widest text-gray-400">Seg</span>
                 </div>
             </div>
         </section>
 
-        <!-- 3. Itinerario (Timeline) -->
-        <section class="glass-panel rounded-3xl p-8 fade-in-up delay-200">
-            <h2 class="text-3xl text-center text-pink-200 mb-8">Itinerario</h2>
+        <!-- 3. ITINERARIO (TIMELINE) -->
+        <section class="glass-panel rounded-3xl p-8 md:p-12 reveal-on-scroll relative overflow-hidden">
+            <!-- Decoración fondo suave -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-pink-600/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+
+            <h2 class="text-3xl text-center text-pink-200 mb-10 tracking-widest flex items-center justify-center gap-4">
+                <i data-lucide="calendar-clock" class="w-6 h-6 opacity-70"></i> Itinerario
+            </h2>
             
-            <div class="relative border-l-2 border-pink-500/30 ml-4 md:ml-10 space-y-8">
+            <div class="relative border-l border-pink-500/30 ml-4 md:ml-8 space-y-10 pb-2">
                 
-                <!-- Evento 1 -->
-                <div class="relative pl-8">
-                    <span class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-pink-500 shadow-[0_0_10px_#ec4899]"></span>
-                    <h3 class="text-xl font-bold text-white">Ceremonia Religiosa</h3>
-                    <p class="text-pink-300 font-mono text-sm mb-1">18:00 HRS</p>
-                    <p class="text-gray-300 text-sm">Iglesia del Sagrado Corazón. Agradeciendo a Dios por estos 15 años.</p>
-                    <a href="https://goo.gl/maps/placeholder" target="_blank" class="inline-flex items-center gap-1 text-xs text-blue-300 mt-2 hover:text-blue-200"><i data-lucide="map-pin" class="w-3 h-3"></i> Ver Mapa</a>
-                </div>
-
-                <!-- Evento 2 -->
-                <div class="relative pl-8">
-                    <span class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-purple-500 shadow-[0_0_10px_#a855f7]"></span>
-                    <h3 class="text-xl font-bold text-white">Recepción</h3>
-                    <p class="text-pink-300 font-mono text-sm mb-1">20:00 HRS</p>
-                    <p class="text-gray-300 text-sm">Salón de Eventos "Vía Láctea". Coctel de bienvenida.</p>
-                    <!-- Botón Mapa Principal -->
-                    <a href="https://maps.app.goo.gl/gQxS2hCqC73wGk1v7" target="_blank" class="mt-3 inline-flex items-center justify-center w-full md:w-auto px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-sm hover:bg-white/20 transition">
-                        <i data-lucide="map" class="w-4 h-4 mr-2"></i> Ubicación del Salón
+                <!-- Misa -->
+                <div class="relative pl-8 md:pl-12 group">
+                    <span class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-pink-400 shadow-[0_0_10px_#f472b6] group-hover:scale-125 transition-transform"></span>
+                    <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-1">
+                        <h3 class="text-xl font-bold text-white">Ceremonia Religiosa</h3>
+                        <span class="text-pink-300 font-mono text-sm bg-pink-900/30 px-2 py-0.5 rounded">18:00 HRS</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-3 leading-relaxed">Iglesia del Sagrado Corazón.<br>Damos gracias por estos 15 años de vida.</p>
+                    <a href="https://maps.google.com" target="_blank" class="inline-flex items-center text-xs text-pink-200 border border-pink-500/30 px-3 py-1.5 rounded-full hover:bg-pink-500/20 transition">
+                        <i data-lucide="map-pin" class="w-3 h-3 mr-1"></i> Ver Ubicación
                     </a>
                 </div>
 
-                <!-- Evento 3 -->
-                <div class="relative pl-8">
-                    <span class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-indigo-500 shadow-[0_0_10px_#6366f1]"></span>
-                    <h3 class="text-xl font-bold text-white">Cena y Vals</h3>
-                    <p class="text-pink-300 font-mono text-sm mb-1">21:30 HRS</p>
-                    <p class="text-gray-300 text-sm">Disfrutaremos de una cena deliciosa seguida del momento mágico del vals.</p>
+                <!-- Recepción -->
+                <div class="relative pl-8 md:pl-12 group">
+                    <span class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-purple-400 shadow-[0_0_10px_#a855f7] group-hover:scale-125 transition-transform"></span>
+                    <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-1">
+                        <h3 class="text-xl font-bold text-white">Recepción</h3>
+                        <span class="text-purple-300 font-mono text-sm bg-purple-900/30 px-2 py-0.5 rounded">20:00 HRS</span>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-3 leading-relaxed">Salón "Vía Láctea".<br>Coctel de bienvenida y entrada al salón.</p>
+                    <a href="https://maps.google.com" target="_blank" class="inline-flex items-center text-xs text-purple-200 border border-purple-500/30 px-3 py-1.5 rounded-full hover:bg-purple-500/20 transition">
+                        <i data-lucide="map" class="w-3 h-3 mr-1"></i> Ver Ubicación
+                    </a>
+                </div>
+
+                <!-- Vals -->
+                <div class="relative pl-8 md:pl-12 group">
+                    <span class="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-indigo-400 shadow-[0_0_10px_#818cf8] group-hover:scale-125 transition-transform"></span>
+                    <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-1">
+                        <h3 class="text-xl font-bold text-white">Vals y Cena</h3>
+                        <span class="text-indigo-300 font-mono text-sm bg-indigo-900/30 px-2 py-0.5 rounded">21:30 HRS</span>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">El momento mágico de la noche, seguido de una deliciosa cena y baile.</p>
                 </div>
             </div>
         </section>
 
-        <!-- 4. Detalles (Dress Code & Regalos) -->
-        <section class="grid md:grid-cols-2 gap-4 fade-in-up delay-300">
+        <!-- 4. TARJETAS DE DETALLES -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-4 reveal-on-scroll">
             <!-- Dress Code -->
-            <div class="glass-panel rounded-2xl p-6 text-center flex flex-col items-center justify-center">
-                <div class="w-12 h-12 bg-pink-500/20 rounded-full flex items-center justify-center mb-3 text-pink-300">
+            <div class="glass-panel rounded-2xl p-6 text-center hover:bg-white/5 transition duration-500">
+                <div class="w-10 h-10 mx-auto bg-pink-500/20 rounded-full flex items-center justify-center mb-3 text-pink-300">
                     <i data-lucide="shirt"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2">Código de Vestimenta</h3>
-                <p class="text-gray-300">Formal / Etiqueta Rigurosa</p>
-                <p class="text-xs text-gray-500 mt-1">Reservado el color rosa para la quinceañera</p>
+                <h3 class="text-lg font-bold mb-1 text-white">Dress Code</h3>
+                <p class="text-sm text-gray-300 font-light">Formal / Etiqueta</p>
+                <p class="text-[10px] text-pink-200/70 mt-2 uppercase tracking-wider border-t border-pink-500/20 pt-2 inline-block">
+                    ⚠️ No color Rosa
+                </p>
             </div>
 
             <!-- Regalos -->
-            <div class="glass-panel rounded-2xl p-6 text-center flex flex-col items-center justify-center">
-                <div class="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center mb-3 text-yellow-300">
+            <div class="glass-panel rounded-2xl p-6 text-center hover:bg-white/5 transition duration-500">
+                <div class="w-10 h-10 mx-auto bg-yellow-500/20 rounded-full flex items-center justify-center mb-3 text-yellow-300">
                     <i data-lucide="gift"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2">Regalos</h3>
-                <p class="text-gray-300 text-sm">Tu presencia es mi mayor regalo. Si deseas tener un detalle, tendremos lluvia de sobres.</p>
+                <h3 class="text-lg font-bold mb-1 text-white">Regalos</h3>
+                <p class="text-sm text-gray-300 font-light">Lluvia de Sobres</p>
+                <p class="text-xs text-gray-400 mt-2">
+                    Habrá un buzón en la recepción.
+                </p>
             </div>
         </section>
 
-        <!-- 5. Confirmación RSVP -->
-        <section class="glass-panel rounded-3xl p-8 md:p-12 text-center border-pink-500/30 fade-in-up delay-500">
-            <h2 class="text-2xl md:text-4xl mb-4">Confirmar Asistencia</h2>
-            <p class="text-gray-300 mb-8">Por favor confirma tu asistencia antes del 1 de Noviembre para poder asignarte un lugar especial.</p>
-            
-            <a href="https://wa.me/521234567890?text=¡Hola!%20Quiero%20confirmar%20mi%20asistencia%20a%20los%20XV%20de%20Skarlet.%20Somos%20[Número]%20personas." 
-               target="_blank"
-               class="inline-flex items-center justify-center gap-3 bg-green-600 hover:bg-green-500 text-white font-bold py-4 px-8 rounded-full text-lg shadow-lg shadow-green-900/50 hover:scale-105 transition duration-300 animate-pulse">
-                <i data-lucide="message-circle" class="w-6 h-6"></i>
-                Confirmar por WhatsApp
-            </a>
+        <!-- 5. CONFIRMACIÓN (CTA) -->
+        <section class="reveal-on-scroll mb-8">
+            <div class="glass-panel rounded-3xl p-8 text-center border border-green-500/30 bg-gradient-to-b from-gray-900/80 to-green-900/20">
+                <h2 class="text-2xl mb-2">Confirmación</h2>
+                <p class="text-sm text-gray-300 mb-6 max-w-md mx-auto">
+                    Por favor confirma tu asistencia antes del 10 de Noviembre enviando un mensaje automático.
+                </p>
+                
+                <a href="https://wa.me/525512345678?text=Hola,%20confirmo%20mi%20asistencia%20a%20los%20XV%20de%20Skarlet." 
+                   target="_blank"
+                   class="group relative inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-8 rounded-full text-base shadow-[0_0_20px_rgba(22,163,74,0.4)] hover:shadow-[0_0_30px_rgba(22,163,74,0.6)] transition-all duration-300 transform hover:-translate-y-1">
+                    <i data-lucide="message-circle" class="w-5 h-5 group-hover:animate-bounce"></i>
+                    <span>Confirmar por WhatsApp</span>
+                </a>
+            </div>
         </section>
 
         <!-- Footer -->
-        <footer class="text-center text-gray-500 text-xs pb-8">
-            <p>Con amor, Skarlet y mis Padres.</p>
+        <footer class="text-center opacity-40 pb-4">
+            <p class="script-font text-2xl text-pink-200">Skarlet</p>
+            <p class="text-[10px] tracking-widest uppercase mt-1">Gracias por acompañarme</p>
         </footer>
 
     </main>
 
     <script>
+        // 1. Inicializar Iconos
         lucide.createIcons();
 
-        // --- Lógica de Música (Tone.js) ---
-        let musicPlaying = false;
-        const musicBtn = document.getElementById('musicButton');
-        const iconPlay = document.getElementById('icon-play');
-        const iconPause = document.getElementById('icon-pause');
+        // 2. Animación al hacer Scroll (Intersection Observer)
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                }
+            });
+        }, observerOptions);
 
-        const synth = new Tone.PolySynth(Tone.Synth, {
-            oscillator: { type: "triangle" },
-            envelope: { attack: 0.5, decay: 0.1, sustain: 0.3, release: 1 }
-        }).toDestination();
+        document.querySelectorAll('.reveal-on-scroll').forEach((el) => observer.observe(el));
 
-        const reverb = new Tone.Reverb({ decay: 3, wet: 0.5 }).toDestination();
-        synth.connect(reverb);
-
-        const melody = [
-            { time: "0:0", note: ["C4", "E4", "G4"] },
-            { time: "0:2", note: ["G4", "B4", "D5"] },
-            { time: "1:0", note: ["A3", "C4", "E4"] },
-            { time: "1:2", note: ["F4", "A4", "C5"] },
-            { time: "2:0", note: ["C4", "E4", "G4"] },
-            { time: "2:2", note: ["G3", "B3", "D4"] },
-            { time: "3:0", note: ["C4", "E4", "G4", "C5"] }
-        ];
-
-        const part = new Tone.Part((time, value) => {
-            synth.triggerAttackRelease(value.note, "2n", time);
-        }, melody);
-
-        part.loop = true;
-        part.loopEnd = "4m";
-        Tone.Transport.bpm.value = 100;
-
-        musicBtn.addEventListener('click', async () => {
-            await Tone.start();
-            
-            if (!musicPlaying) {
-                Tone.Transport.start();
-                musicBtn.classList.remove('music-btn-pulse');
-                musicBtn.classList.add('bg-pink-500/50', 'border-pink-400');
-                iconPlay.classList.add('hidden');
-                iconPause.classList.remove('hidden');
-                musicPlaying = true;
-            } else {
-                Tone.Transport.pause();
-                musicBtn.classList.remove('bg-pink-500/50', 'border-pink-400');
-                iconPlay.classList.remove('hidden');
-                iconPause.classList.add('hidden');
-                musicPlaying = false;
-            }
-        });
-
-        // --- Lógica de Cuenta Regresiva ---
+        // 3. Cuenta Regresiva
         const targetDate = new Date("November 23, 2025 20:00:00").getTime();
-
+        
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = targetDate - now;
-
+            
             if (distance < 0) {
-                document.getElementById("days").innerText = "0";
-                document.getElementById("hours").innerText = "0";
-                document.getElementById("minutes").innerText = "0";
-                document.getElementById("seconds").innerText = "0";
-                return;
+                document.getElementById("days").innerText = "0"; return; 
             }
 
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -292,14 +308,72 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById("days").innerText = days;
-            document.getElementById("hours").innerText = hours;
-            document.getElementById("minutes").innerText = minutes;
-            document.getElementById("seconds").innerText = seconds;
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
         }
-
         setInterval(updateCountdown, 1000);
         updateCountdown();
+
+        // 4. Reproductor de Música (Tone.js)
+        let isPlaying = false;
+        const btn = document.getElementById('musicButton');
+        const iconPlay = document.getElementById('icon-play');
+        const iconPause = document.getElementById('icon-pause');
+
+        // Melodía: Coldplay - A Sky Full of Stars (Simplificada)
+        // Notas base del riff principal
+        const melody = [
+            { time: "0:0", note: ["F#4", "A#4", "C#5", "F#5"] }, 
+            { time: "0:2", note: ["F#4", "A#4", "C#5", "F#5"] },
+            { time: "0:3", note: ["F#4", "B4", "D#5", "F#5"] },
+            { time: "1:0", note: ["F#4", "B4", "D#5", "F#5"] },
+            { time: "1:2", note: ["F4", "G#4", "C#5", "F5"] },
+            { time: "2:0", note: ["D#4", "F#4", "A#4", "D#5"] },
+        ];
+
+        // Sintetizador con sonido "Espacial"
+        const synth = new Tone.PolySynth(Tone.Synth, {
+            oscillator: { type: "fatsawtooth", count: 3, spread: 30 },
+            envelope: { attack: 0.01, decay: 0.1, sustain: 0.5, release: 1 }
+        }).toDestination();
+        
+        // Efectos para darle ambiente
+        const reverb = new Tone.Reverb({ decay: 4, wet: 0.7 }).toDestination();
+        const delay = new Tone.FeedbackDelay("8n", 0.5).toDestination();
+        
+        synth.connect(reverb);
+        synth.connect(delay);
+
+        // Crear la secuencia
+        const part = new Tone.Part((time, value) => {
+            synth.triggerAttackRelease(value.note, "8n", time);
+        }, melody);
+        
+        part.loop = true;
+        part.loopEnd = "2m"; // Duración del loop
+        Tone.Transport.bpm.value = 115; // Tempo original aprox
+
+        btn.addEventListener('click', async () => {
+            await Tone.start();
+            if (!isPlaying) {
+                Tone.Transport.start();
+                btn.classList.remove('music-pulse'); // Parar animación de atención
+                btn.classList.add('bg-green-500/80', 'border-green-400'); // Cambiar estado
+                btn.classList.remove('bg-pink-600/80');
+                iconPlay.classList.add('hidden');
+                iconPause.classList.remove('hidden');
+                isPlaying = true;
+            } else {
+                Tone.Transport.pause();
+                btn.classList.add('bg-pink-600/80');
+                btn.classList.remove('bg-green-500/80', 'border-green-400');
+                iconPlay.classList.remove('hidden');
+                iconPause.classList.add('hidden');
+                isPlaying = false;
+            }
+        });
     </script>
 </body>
 </html>
